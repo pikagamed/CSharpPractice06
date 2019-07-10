@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[System.Serializable]
 public class Student
 {
     public int score;
@@ -7,7 +8,7 @@ public class Student
 
     public static int count;
 
-    //靜態方法內只能存取靜態成ㄣ員、類別
+    //靜態方法內只能存取靜態成員、類別
     public static void StudentAdd()
     {
         count++;

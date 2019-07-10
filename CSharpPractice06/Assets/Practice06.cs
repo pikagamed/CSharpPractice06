@@ -16,7 +16,14 @@ public class Practice06 : MonoBehaviour
     public Student S1 = new Student();
     public Student S2 = new Student();
 
-void Start()
+    //類別沒有實例化時預設為null
+    public Student s3;
+    public Color color1;  //Color是Unity內建的Struct
+
+    public Data data1;
+    public Data data2 = new Data(10,50,250);
+
+    void Start()
     {
         #region 命名空間
         Debug.Log("A的絕對值："+Math.Abs(A)); //有使用 using System; 
@@ -56,7 +63,46 @@ void Start()
         ScoreManager.CheckScore(S2.score, Student.passScore);
 
         #endregion
+
+        #region 結構
+
+        Debug.Log("未實例化class："+s3);
+        Debug.Log("未實例化struct：" + color1);
+
+        //實質型別vs參考型別
+        //參考型別
+        Student s = s3;
+        s.score = 100;
+        Debug.Log("區域變數s：" + s.score);
+        Debug.Log("全域變數s3：" + s3.score);
+        //實質型別
+        Data d = data2;
+        d.level = 999;
+        Debug.Log("區域變數d：" + d.level);
+        Debug.Log("全域變數data2：" + data2.level);
+
+        #endregion
     }
 
 
+}
+
+[System.Serializable]
+public struct Data
+{
+    public int level;   //結構中不可宣告初始值，除非該欄位為const或static
+    public const int baseValue = 10;    //常數欄位可以初始化
+    public static int count = 1;            //靜態欄位可以初始化
+    public float attack;
+    public float _healthPoint;
+
+    public float HP { get => _healthPoint; set => _healthPoint = value; }   //屬性的使用同class
+
+    //宣告建構子時，必須明確給予每一個欄位初始值
+    public Data( int getLevel, float getAttack, float getHealPoint)
+    {
+        level = getLevel;
+        attack = getAttack;
+        _healthPoint = getHealPoint;
+    }
 }
